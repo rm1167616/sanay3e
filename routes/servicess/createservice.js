@@ -8,11 +8,12 @@
     router.post("/:id",async(req,res)=>{
         try
         {
-            const { descreption , Longitude , latitude , address } = req.body ;
+            const { name , descreption , Longitude , latitude , address } = req.body ;
             const userid = req.params.id;
             const query = util.promisify(connection.query).bind(connection) ;
             // prepare the object 
             const service = {
+                name : name ,
                 descreption : descreption ,
                 Longitude:Longitude,
                 latitude:latitude,
