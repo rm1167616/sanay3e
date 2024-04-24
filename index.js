@@ -12,11 +12,9 @@ app.use(cors());  // allow https requst,respons
 
 
 //======== run the app ============//
-app.listen(4000,"localhost",()=>{
-
-        console.log("SERVER IS RUNNING....");
-})
-
+app.listen(4000 || process.env.port, () => {
+        console.log("SERVER IS RUNNING....${port}");
+    });
 
 //============== api ==============//
 
