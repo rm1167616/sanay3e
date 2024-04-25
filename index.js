@@ -23,6 +23,7 @@ app.use("/register",require("./routes/auth/register"));
 app.use("/login",require("./routes/auth/login"));
 app.use("/complete",require("./routes/auth/completeprofile"));
 app.use("/forgetpass",require("./routes/auth/forgetpassword"));
+app.use("/location",require("./routes/auth/location"));
 
 //=============== category ===========// 
 app.use("/createcategory",require("./routes/category/createcategory"));

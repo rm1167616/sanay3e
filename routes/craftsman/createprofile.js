@@ -85,4 +85,7 @@ router.post("/gallery/:id", upload.array('pictures'), async (req, res) => {
     }
 });
 
+
+
+
 module.exports = router;
