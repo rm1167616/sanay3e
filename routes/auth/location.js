@@ -5,7 +5,7 @@ const util = require("util"); // helper
 
 
 // location 
-router.post("/location/:id",async (req, res) => {
+router.put("/:id",async (req, res) => {
     try {
         const { Longitude, latitude , address} = req.body; 
         const query = util.promisify(connection.query).bind(connection);
