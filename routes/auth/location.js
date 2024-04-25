@@ -21,6 +21,7 @@ router.put("/:id",async (req, res) => {
             } ;
             // insert the object in data base 
             await query ("update user set ? where id = ?",[location,id]);
+            res.status("the profile updated");
 
 
         }
