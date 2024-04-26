@@ -7,25 +7,27 @@ const upload = require("../../middleware/uploadimage");
 
 
 // api create category
-router.post("/",upload.single("img"), async (req, res) => {
-    const { name, description,package, min_time, material } = req.body;
+router.post("/", async (req, res) => {
+    const { name, description, package, min_time, material , img ,public_idid } = req.body;
     try {
         const query = util.promisify(connection.query).bind(connection);
 
 
-            // prepare the object 
-            const category = {
-                name: name,
-                description: description,
-                img: req.file.originalname,
-                min_time: min_time,
-                package:package,
-                material: material
-            };
-            // insert the object in data base 
-            await query("insert into category set ?", category);
-            res.status(200).json(category);
-    
+        uploadImageToCloudinary(img);
+        // prepare the object 
+        const category = {
+            name: name,
+            description: description,
+            img: img,
+            public_id : public_id,
+            min_time: min_time,
+            package: package,
+            material: material
+        };
+        // insert the object in data base 
+        await query("insert into category set ?", category);
+        res.status(200).json(category);
+
 
 
 
