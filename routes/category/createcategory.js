@@ -8,7 +8,7 @@ const upload = require("../../middleware/uploadimage");
 
 // api create category
 router.post("/", async (req, res) => {
-    const { name, description, package, min_time, material , img ,public_idid } = req.body;
+    const { name, description, package, min_time, material , img ,public_id } = req.body;
     try {
         const query = util.promisify(connection.query).bind(connection);
 
