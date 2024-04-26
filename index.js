@@ -53,3 +53,6 @@ app.use("/booking",require("./routes/booking/book"));
 app.use("/support",require("./routes/support/Support"));
 //============= scadule =======//
 app.use("/choosescadule",require("./routes/scadule/choosescadule"));
+//============== rate function =========== //
+// app.use("/rate",require("./routes/rate/Rate"));
+app.use("/reviwe",require("./routes/review/review"));
