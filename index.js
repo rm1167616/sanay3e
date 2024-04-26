@@ -49,7 +49,7 @@ app.use("/bookinglistfotc",require("./routes/gets/getbokinglistforcraftsman"));
 app.use("/bookinglistforcustomer",require("./routes/gets/getbookinglistforcustomer"));
 //============ booking function ==========//
 app.use("/booking",require("./routes/booking/book"));
-
-
+//========================support============//
+app.use("/support",require("./routes/support/Support"));
 //============= scadule =======//
 app.use("/choosescadule",require("./routes/scadule/choosescadule"));

@@ -12,39 +12,32 @@ router.post("/",async (req,res)=>{
     {
      //==== check the email is exist or not ====//
      const query = util.promisify(connection.query).bind(connection); // transform query to promise to can use await/ async
-     const emailexist = await query ("select * from user where email = ? ",email)
-     if(emailexist.length > 0)
-     {
-        res.status(400).json({msg:"this email is already exist .."})
+     const emailexist = await query("SELECT * FROM user WHERE email = ?", email);
+     if (emailexist.length > 0) {
+        return res.status(400).json({ msg: "This email is already in use." });
      }
      else
      {
         //==== prepare the object 
-        const userobj ={
+        const userobj = {
          username : username,
          email : email,
-         password : await bcrypt.hash(password,10),
+         password : await bcrypt.hash(password, 10),
          phone : phone,
-         role:role,
+         role: role,
          token : crypto.randomBytes(16).toString("hex")
         }
         // add the data in database 
-        await query ("insert into user set ? ", userobj)
-        res.status(500).json({
-         msg : " the registration is success",
-        })
+        const insertUserResult = await query("INSERT INTO user SET ?", userobj);
+        const userId = insertUserResult.insertId;
+        res.status(200).json({ id: userId });
      }
     }
 
     catch(err)
     {
-        res.send(err)
+         throw(err)
     }
-})
+});
 
-
-
-
-
-
-module.exports = router ; 
+module.exports = router;
