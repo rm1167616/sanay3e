@@ -8,7 +8,7 @@ router.get("/",async(req,res)=>{
     try
     {
         const query = util.promisify(connection.query).bind(connection);
-        const category = await query ("select name , img from category");
+        const category = await query ("select name , img ,public_id from category");
         if(category[0])
         {
             res.status(200).json(category);

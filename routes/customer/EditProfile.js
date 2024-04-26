@@ -5,7 +5,7 @@ const util = require("util");
 
 router.put('/:id', (req, res) => {
     const userId = req.params.id;
-    const { f_name, l_name, username, email, phone, photo } = req.body;
+    const { f_name, l_name, username, email, phone, photo , public_id  } = req.body;
 
   
     const query = `UPDATE user SET 
@@ -14,10 +14,11 @@ router.put('/:id', (req, res) => {
       username = ?,
       email = ?,
       phone = ?,
-      photo = ?
+      photo = ?,
+      public_id = ?
       WHERE id = ?`;
 
-    connection.query(query, [f_name, l_name, username, email, phone, photo, userId], (err, results) => {
+    connection.query(query, [f_name, l_name, username, email, phone, photo,public_id, userId], (err, results) => {
         if (err) {
             console.error('Error updating user information:', err);
             res.status(500).send('Error updating user information');
@@ -25,7 +26,7 @@ router.put('/:id', (req, res) => {
         }
 
         // updated user data from the database
-        const Query = `SELECT f_name, l_name, username, email, phone, photo FROM user WHERE id = ?`;
+        const Query = `SELECT f_name, l_name, username, email, phone, photo ,public_id FROM user WHERE id = ?`;
 
         connection.query(Query, [userId], (Err, Results) => {
             if (Err) {

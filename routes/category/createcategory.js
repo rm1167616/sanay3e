@@ -11,7 +11,15 @@ router.post("/",async(req, res) => {
         const { name , description , img , public_id , min_time , package , material} = req.body ;
         const query = util.promisify(connection.query).bind(connection);
 
-        // prepare the object 
+        const cate = await query ("select * from category where name = ?",name);
+        if(cate[0])
+        {
+            res.status(404).json("sorry ypu cant add the same category more than once time");
+
+        }
+        else
+        {
+                    // prepare the object 
         const category = {
             name: name,
             description: description,
@@ -24,7 +32,9 @@ router.post("/",async(req, res) => {
         // insert the object in data base 
         await query("insert into category set ?", category);
         res.status(200).json(category);
-
+    
+        }
+    
 
 
 

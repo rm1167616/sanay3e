@@ -38,9 +38,6 @@ router.post("/profile/:id", async (req, res) => {
             res.status(400).json("SORRY YHE USER NOT EXIST PLEASE SIGNUP AGAIN....");
         }
 
-
-
-
     }
     catch (err) {
         res.status(404).json(err);
@@ -48,40 +45,33 @@ router.post("/profile/:id", async (req, res) => {
 })
 
 
-
 // Route to handle file uploads and store paths in database
-router.post("/gallery/:id", upload.array('pictures'), async (req, res) => {
+router.post("/gallery/:id", async (req, res) => {
     try {
+        const { imageUrls, publicIds } = req.body;
         const query = util.promisify(connection.query).bind(connection);
-        const talkId = req.params.id;
-        const files = req.files; // Extract uploaded files from req object
+        const userId = req.params.id;
 
-        // check if user exist or not 
-        const user = await query("select * from user where id = ?", talkId);
-        if (user[0]) {
-            // Insert paths into database
-
-            for (const file of files) {
-                const sourcePath = `uploads/${file.filename}`;
-                if (!fs.existsSync(sourcePath)) {
-                    console.error(`Source file ${sourcePath} does not exist.`);
-                    continue; // Skip to the next file
-                }
-            
-                const extension = file.originalname.split('.').pop(); // Extract file extension
-                const newPath = `uploads/${talkId}_${Date.now()}.${extension}`; // Construct unique destination path
-                fs.renameSync(sourcePath, newPath);
-                await query("INSERT INTO gallary (userid, img_url) VALUES (?, ?)", [talkId, newPath]);
-            }
-
-            res.status(200).json("THE IMG UPLOAD SUCCESSFULLY..");
+        // Check if the user exists
+        const user = await query("SELECT * FROM user WHERE id = ?", userId);
+        if (!user[0]) {
+            return res.status(404).json({ error: "Not Found", message: "User not found." });
         }
-        else {
-            res.status(400).json("SORRY THE USER NOT EXIST ")
-        }
+
+        // Prepare the object to insert into the database
+        const galleryData = {
+            userid: userId,
+            public_id: publicIds,
+            img_url: imageUrls
+        };
+
+        // Insert paths into the database using parameterized query
+        await query("INSERT INTO gallary SET ?", galleryData);
+
+        res.status(200).json("Images uploaded successfully.");
     } catch (err) {
         console.error(err);
-        res.status(404).json(err);
+        res.status(500).json({ error: "Internal Server Error", message: err.message });
     }
 });
 

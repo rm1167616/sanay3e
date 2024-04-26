@@ -28,30 +28,6 @@ router.put("/editprofile/:id", async (req, res) => {
     }
 });
   
-router.put("/gallery/:id", upload.single('picture'), async (req, res) => {
-    try {
-        const query = util.promisify(connection.query).bind(connection);
-        const userId = req.params.id;
-        const newFile = req.file;
-
-        // Check if the image exists
-        const image = await query("SELECT * FROM gallary WHERE userid = ?", userId);
-        if (image[0]) {
-            // Update image path
-            const extension = newFile.originalname.split('.').pop(); // Extract file extension
-            const newPath = `uploads/${userId}_${Date.now()}.${extension}`; // Construct unique destination path
-            fs.renameSync(`uploads/${newFile.filename}`, newPath);
-            await query("UPDATE gallary SET img_url = ? WHERE userid = ?", [newPath, userId]);
-            
-            res.status(200).json("THE IMG UPDATED SUCCESSFULLY..");
-        } else {
-            res.status(404).json("SORRY, IMAGE NOT FOUND");
-        }
-    } catch (err) {
-        console.error(err);
-        res.status(500).json(err);
-    }
-});
 
 
 module.exports = router;
