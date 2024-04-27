@@ -56,5 +56,5 @@ app.use("/choosescadule",require("./routes/scadule/choosescadule"));
 //============== rate function =========== //
 // app.use("/rate",require("./routes/rate/Rate"));
 app.use("/reviwe",require("./routes/review/review"));
-//============== SERACH FUNCTION ========= // 
+//============== SERACH FUNCTION ============ // 
 app.use("/search",require("./routes/search/search"));
