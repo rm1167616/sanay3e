@@ -2,13 +2,14 @@ const router = require("express").Router();
 const { body } = require("express-validator");
 const connection = require("../../db/dbConnection");
 const util = require("util"); // helper 
+const fs = require('fs');
+const upload = require("../../middleware/uploadimage");
 
 
 
-
-router.post("/",async(req, res) => {
+router.post("/",upload.single("img"),async(req, res) => {
     try {
-        const { name , description , img , public_id , min_time , package ,package2 ,package3 ,package4 , material ,coverimg_url ,coverPUblic_id	} = req.body ;
+        const { name , description , min_time , package ,package2 ,package3 ,package4 , material ,coverimg_url ,coverPUblic_id	} = req.body ;
         const query = util.promisify(connection.query).bind(connection);
 
         const cate = await query ("select * from category where name = ?",name);
@@ -23,16 +24,13 @@ router.post("/",async(req, res) => {
         const category = {
             name: name,
             description: description,
-            img: img,
-            public_id : public_id,
+            img: req.file.originalname,
             min_time: min_time,
             package: package,
             package2: package2,
-            package3: package2,
+            package3: package3,
             package4: package4,
             material: material,
-            coverimg_url:coverimg_url,
-            coverPUblic_id:coverPUblic_id
         };
         // insert the object in data base 
         await query("insert into category set ?", category);
