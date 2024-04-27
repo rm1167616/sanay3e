@@ -4,7 +4,7 @@ const connection = require("../../db/dbConnection");
 const util = require("util"); // helper 
 
 
-// location 
+// put and update location 
 router.put("/:id",async (req, res) => {
     try {
         const { Longitude, latitude , address} = req.body; 
