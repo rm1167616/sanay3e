@@ -8,7 +8,7 @@ const util = require("util"); // helper
 
 router.post("/",async(req, res) => {
     try {
-        const { name , description , img , public_id , min_time , package , material ,coverimg_url ,coverPUblic_id	} = req.body ;
+        const { name , description , img , public_id , min_time , package ,package2 ,package3 ,package4 , material ,coverimg_url ,coverPUblic_id	} = req.body ;
         const query = util.promisify(connection.query).bind(connection);
 
         const cate = await query ("select * from category where name = ?",name);
@@ -27,6 +27,9 @@ router.post("/",async(req, res) => {
             public_id : public_id,
             min_time: min_time,
             package: package,
+            package2: package2,
+            package3: package2,
+            package4: package4,
             material: material,
             coverimg_url:coverimg_url,
             coverPUblic_id:coverPUblic_id

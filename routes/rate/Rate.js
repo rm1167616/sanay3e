@@ -1,33 +1,46 @@
-// const router = require("express").Router();
-// const { body } = require("express-validator");
-// const connection = require("../../db/dbConnection");
-// const util = require("util");
+const router = require("express").Router();
+const { body } = require("express-validator");
+const connection = require("../../db/dbConnection");
+const util = require("util");
 
-// router.post('/', async (req, res) => {
-//     try {
-//         const { customerid, craftsmanid, rate } = req.body;
-//         // prepare the object 
-//         const ratingob = {
-//             customerid: customerid,
-//             craftsmanid: craftsmanid,
-//             rate: rate
-//         };
-//         // insert the object in the database 
-//         const insertResult = await util.promisify(connection.query)("INSERT INTO rate SET ?", ratingob);
+router.post("/:id", async (req, res) => {
+    try {
+        const customerid = req.params.id;
+        const { craftsmanid, rate } = req.body;
+        const query = util.promisify(connection.query).bind(connection);
 
-//         // get all rates about craftsman 
-//         const craftsmanRates = await util.promisify(connection.query)("SELECT * FROM rate WHERE craftsmanid = ?", craftsmanid);
-//         let sum = 0;
-//         for (let i = 0; i < craftsmanRates.length; i++) {
-//             sum += craftsmanRates[i].rate;
-//         }
-//         const average = sum / craftsmanRates.length;
-//         res.status(200).json({ averageRating: average });
-//     } catch (err) {
-//       throw (err)
-//         console.error("Error:", err);
-//         res.status(500).json({ error: "Internal Server Error" });
-//     }
-// });
+        // Prepare the object of rating 
+        const rating = {
+            customerid: customerid,
+            craftsmanid: craftsmanid,
+            rate: rate
+        };
+        
+        // Insert rating into the rating table
+        await query("INSERT INTO rating SET ?", rating);
 
-// module.exports = router;
+        // Retrieve all ratings for the craftsman
+        const rateobj = await query("SELECT * FROM rating WHERE craftsmanid = ?", craftsmanid);
+
+        // Variable to store the sum of ratings
+        let sum = 0;
+
+        // Loop through the array and add each rating to the sum
+        for (let i = 0; i < rateobj.length; i++) {
+            sum += rateobj[i].rate;
+        }
+
+        // Calculate average rating
+        const average = sum / rateobj.length;
+
+        // Update the rate in the craftsman table
+        await query("UPDATE craftsman SET rate = ? WHERE id = ?", [average, craftsmanid]);
+
+        // Respond with the sum of ratings (for debugging purposes)
+        res.status(200).json({ sum: sum, average: average });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+module.exports = router;
