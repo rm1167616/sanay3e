@@ -14,7 +14,7 @@ router.post("/",async(req,res)=>{
 
         if(category[0])
         {
-            res.status(500).json(category);
+            res.status(200).json(category);
         }
         else
         {
