@@ -10,7 +10,7 @@ router.post("/",async(req,res)=>{
     {
         const { categoryname } = req.body;
         const query = util.promisify(connection.query).bind(connection) ;
-        const category = await query("SELECT * FROM category WHERE name LIKE CONCAT('%', ?, '%')", [categoryname]);
+        const category = await query("SELECT * FROM category WHERE name = ?", [categoryname]);
 
         if(category[0])
         {

@@ -2,12 +2,10 @@ const router = require("express").Router();
 const { body } = require("express-validator");
 const connection = require("../../db/dbConnection");
 const util = require("util"); // helper 
-const fs = require('fs');
-const upload = require("../../middleware/uploadimage");
 
 
 
-router.post("/",upload.single("img"),async(req, res) => {
+router.post("/",async(req, res) => {
     try {
         const { name , description , min_time , package ,package2 ,package3 ,package4 , material ,coverimg_url ,coverPUblic_id	} = req.body ;
         const query = util.promisify(connection.query).bind(connection);
@@ -24,7 +22,7 @@ router.post("/",upload.single("img"),async(req, res) => {
         const category = {
             name: name,
             description: description,
-            img: req.file.originalname,
+            img: img ,
             min_time: min_time,
             package: package,
             package2: package2,
