@@ -38,7 +38,7 @@ router.post("/profile/:id", async (req, res) => {
             res.status(400).json("SORRY YHE USER NOT EXIST PLEASE SIGNUP AGAIN....");
         }
 
-    }//uighohjpoj
+    }
     catch (err) {
         res.status(404).json(err);
     }
