@@ -38,7 +38,7 @@ router.post("/profile/:id", async (req, res) => {
             res.status(400).json("SORRY YHE USER NOT EXIST PLEASE SIGNUP AGAIN....");
         }
 
-    }
+    }//uighohjpoj
     catch (err) {
         res.status(404).json(err);
     }
@@ -85,7 +85,7 @@ router.post("/compp/:id",async(req,res)=>{
         if(craftsman[0])
         {
             await query ("update craftsman set area =? , category= ? where userid = ?",[area,category,craftsmanid]);
-            res.status(500).json("th profileupdated") ;       
+            res.status(200).json("th profileupdated") ;       
         }
         else
         {
