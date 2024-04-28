@@ -78,13 +78,13 @@ router.post("/gallery/:id", async (req, res) => {
 router.post("/compp/:id",async(req,res)=>{
     try
     {
-        const { area ,  price } = req.body ;
+        const { area ,  category } = req.body ;
         const craftsmanid = req.params.id;
         const query = util.promisify(connection.query).bind(connection);
         const craftsman = await query ("select * from craftsman where userid = ? ",craftsmanid);
         if(craftsman[0])
         {
-            await query ("update craftsman set area =? , price= ? where userid = ?",[area,price,craftsmanid]);
+            await query ("update craftsman set area =? , category= ? where userid = ?",[area,category,craftsmanid]);
             res.status(500).json("th profileupdated") ;       
         }
         else

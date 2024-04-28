@@ -51,6 +51,7 @@ app.use("/bookinglistforcustomer",require("./routes/gets/getbookinglistforcustom
 app.use("/booking",require("./routes/booking/book"));
 //========================support============//
 app.use("/support",require("./routes/support/Support"));
+app.use("/viewsupport",require("./routes/support/viewallsupport"));
 //============= scadule =======//
 app.use("/choosescadule",require("./routes/scadule/choosescadule"));
 //============== rate function =========== //
