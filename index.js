@@ -60,3 +60,5 @@ app.use("/rate",require("./routes/rate/Rate"));
 app.use("/reviwe",require("./routes/review/review"));
 //============== SERACH FUNCTION ============ // 
 app.use("/search",require("./routes/search/search"));
+//============= TRANSACTION ==================//
+app.use("/transction",require("./routes/gets/transaction"));

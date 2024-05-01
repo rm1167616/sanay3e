@@ -12,18 +12,21 @@ router.post("/profile/:id", async (req, res) => {
     try {
         const query = util.promisify(connection.query).bind(connection);
         const id = req.params.id;
-        const user = await query("select * from user where id = ?", id);
-        if (user[0]) {
+        const userobj = await query("select * from user where id = ?", id);
+        const nameee = userobj[0].username;
+        if (userobj[0]) {
             const cr1 = await query("select * from craftsman where userid = ?", id);
             if (cr1[0]) {
                 res.status(404).json("the creaftsman created already ");
             }
-            else {
+            else {        
                 // prepare the object 
                 const craftsman = {
                     userid: id,
                     aboutme: aboutme,
-                    skills: skills
+                    skills: skills,
+                    cr_name : nameee ,
+                      
                 };
                 // insert it into data base 
                 await query("insert into craftsman set ?", craftsman);
