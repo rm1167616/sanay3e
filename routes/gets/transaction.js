@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
         const query = util.promisify(connection.query).bind(connection);
         const transaction = await query(`
         SELECT 
-        user.f_name ,
+        user.username ,
         user.l_name,
         services.name,
         booking.price,
