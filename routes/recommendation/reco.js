@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
         console.log('Input Number of Craftsmen:', number_craftsmen);
 
         // Call your Python-based recommendation API
-        const pythonApiUrl = 'http://localhost:5000/recommendations'; // Adjust the URL
+        const pythonApiUrl = 'http://127.0.0.1:5000/recommendations'; // Adjust the URL
         const response = await axios.post(pythonApiUrl, {
             category,
             number_craftsmen,
