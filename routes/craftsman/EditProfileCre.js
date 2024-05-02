@@ -30,7 +30,7 @@ router.put("/editprofile/:id", async (req, res) => {
   
 
 
-router.put("/profile/:id", async (req, res) => {
+router.put("/profile2/:id", async (req, res) => {
     const { aboutme, skills } = req.body;
     try {
         const query = util.promisify(connection.query).bind(connection);

@@ -10,7 +10,6 @@ router.get("/", async (req, res) => {
         const transaction = await query(`
         SELECT 
         user.username ,
-        user.l_name,
         services.name,
         booking.price,
         scadule.start_time,
@@ -19,7 +18,7 @@ router.get("/", async (req, res) => {
         craftsman.cr_name
 FROM 
     booking 
-JOIN 
+JOIN  
     user  ON booking.userid = user.id
 JOIN 
     services ON booking.servceid  = services.id

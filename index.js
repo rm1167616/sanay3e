@@ -62,3 +62,5 @@ app.use("/reviwe",require("./routes/review/review"));
 app.use("/search",require("./routes/search/search"));
 //============= TRANSACTION ==================//
 app.use("/transction",require("./routes/gets/transaction"));
+//============== RECOMMENDATION ================//
+app.use("/recommendation",require("./routes/recommendation/reco"));
