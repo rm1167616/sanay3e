@@ -64,4 +64,4 @@ app.use("/search",require("./routes/search/search"));
 app.use("/transction",require("./routes/gets/transaction"));
 //============== RECOMMENDATION ================//
 app.use("/recommendation",require("./routes/recommendation/reco"));
-app.use("/price_prediction",require("./routes/recommendation/price_prediction"));
+app.use("/priceprediction",require("./routes/recommendation/price_prediction"));

@@ -1,49 +1,41 @@
-const router = require("express").Router();
-const connection = require("../../db/dbConnection");
-const { body , validationResult } = require('express-validator');
-const util = require("util"); // helper 
-const bcrypt = require("bcrypt");
-const crypto = require("crypto");
+const express = require('express');
+const router = express.Router();
+const axios = require('axios');
 
-// ========= LOGIN ==============//
+router.post('/', async (req, res) => {
+    try {
+        // Extract latitude, longitude, and addMaterial from the request body
+        const { latitude, longitude, addMaterial } = req.body;
 
-router.post("/",body("email").isEmail().withMessage("enter valid email"),
-                     body("password"),async (req,res)=>{
-    try
-    {
-       //=== validation of request 
-     const errors = validationResult(req);
-     if(!errors.isEmpty())
-     {
-        return res.status(400).json({errors:errors.array()})
-     }
-     //==== check the email is exist or not ====//
-     const query = util.promisify(connection.query).bind(connection) // transform query to promise to can use await/ async
-     const user = await query ("select * from user where email = ? ",[req.body.email])
-     if(user.length == 0)
-     {
-        res.status(404).json({msg:"the email or password not found....."})
-     }
-      // === compare hashed password ===// 
-      const checkpassword = await bcrypt.compare(
-         req.body.password,
-         user[0].password
-      );
-      if(checkpassword)
-      {
-         res.status(200).json(user);
-      }
-      else
-      {
-         res.status(404).json({
-            msg:"the password or email not correct"
-         })
-      }
-     }
-    catch(err)
-    {
-        res.send(err)
+        console.log('Input Latitude:', latitude);
+        console.log('Input Longitude:', longitude);
+
+        // Call your Python-based prediction API
+        const pythonApiUrl = 'https://bac8ee73-b403-4648-b577-4391dad4d2fd-00-6xpceuwiiadd.worf.replit.dev:4200/predict'; // Adjust the URL
+        const response = await axios.post(pythonApiUrl, {
+            latitude,
+            longitude,
+        });
+
+        let predictedCharge = response.data.predicted_charge_amount;
+
+        // If addMaterial flag is true, add 50% to the predicted charge
+        if (addMaterial === true) {
+            predictedCharge *= 1.5;
+        }
+
+        // Apply taxes (35% including 20% tax)
+        predictedCharge *= 1.35;
+
+        // Round the predicted charge amount to the nearest integer
+        predictedCharge = Math.round(predictedCharge);
+
+        console.log('Python API Response:', response.data);
+        res.json({ predicted_charge_amount: predictedCharge });
+    } catch (error) {
+        console.error('Error predicting charge amount:', error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
-})
+});
 
-module.exports = router ;
+module.exports = router;
