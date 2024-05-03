@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
         console.log('Input Longitude:', longitude);
 
         // Call your Python-based prediction API
-        const pythonApiUrl = 'http://localhost:5000/predict'; // Adjust the URL
+        const pythonApiUrl = 'https://bac8ee73-b403-4648-b577-4391dad4d2fd-00-6xpceuwiiadd.worf.replit.dev:4200/predict'; // Adjust the URL
         const response = await axios.post(pythonApiUrl, {
             latitude,
             longitude,
