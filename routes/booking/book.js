@@ -8,7 +8,7 @@ const util = require("util"); // helper
 router.post("/:id",async(req,res)=>{
     try
     {
-        const { craftsmanid , servceid , price} = req.body;
+        const { craftsmanid , servceid , price ,scaduleid} = req.body;
         const userid = req.params.id;
         const query = util.promisify(connection.query).bind(connection); 
         // prepare the object to insert it in data base 
@@ -16,7 +16,8 @@ router.post("/:id",async(req,res)=>{
             craftsmanid : craftsmanid ,
             servceid : servceid ,
             price : price,
-            userid : userid
+            userid : userid,
+            scaduleid:scaduleid
         };
         // insert it in data base 
         await query ("insert into booking set ?",bookingobj);

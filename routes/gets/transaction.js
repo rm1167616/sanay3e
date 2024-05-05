@@ -9,12 +9,12 @@ router.get("/", async (req, res) => {
         const query = util.promisify(connection.query).bind(connection);
         const transaction = await query(`SELECT 
         booking.id,
+        booking.price,
         user.username,
         services.name,
-        booking.price,
-        schedule.start_time,
-        schedule.end_time,
-        schedule.date,
+        scadule.start_time,
+        scadule.end_time,
+        scadule.date,
         craftsman.cr_name
     FROM 
         booking 
@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
     JOIN 
         services ON booking.servceid = services.id
     JOIN 
-        schedule ON booking.id = schedule.bookingid
+    scadule ON booking.scaduleid = scadule.id
     JOIN
         craftsman ON booking.craftsmanid = craftsman.userid; 
 `);
