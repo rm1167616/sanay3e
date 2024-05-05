@@ -7,7 +7,7 @@ router.get("/",async(req,res)=>{
     try
     {
         const query = util.promisify(connection.query).bind(connection);
-        const supportlist = await query("SELECT user.username, user.email, user.phone, support.description FROM user JOIN support ON user.id = support.user_id; ");
+        const supportlist = await query("SELECT support.id , user.username, user.email, user.phone, support.description FROM user JOIN support ON user.id = support.user_id; ");
         if(supportlist[0])
         {
             res.status(200).json(supportlist)
