@@ -45,5 +45,3 @@ router.post("/",body("email").isEmail().withMessage("enter valid email"),
         res.send(err)
     }
 })
-
-module.exports = router
