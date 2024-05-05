@@ -10,12 +10,13 @@ router.post("/:id",async (req, res) => {
     {
       const query = util.promisify(connection.query).bind(connection);
       const customerid = req.params.id;
-    const { craftsmanid, comment } = req.body;
+    const { craftsmanid, comment ,rate } = req.body;
     // prepare the object 
     const reviewobj = {
       customerid : customerid ,
       craftsmanid : craftsmanid, 
-      comment : comment 
+      comment : comment ,
+      rate : rate
     };
     // insert the object in database
     await query (" insert into reviews set ?",reviewobj); 

@@ -7,26 +7,25 @@ const util = require("util"); // helper
 router.get("/", async (req, res) => {
     try {
         const query = util.promisify(connection.query).bind(connection);
-        const transaction = await query(`
-        SELECT 
+        const transaction = await query(`SELECT 
         booking.id,
-        user.username ,
+        user.username,
         services.name,
         booking.price,
-        scadule.start_time,
-        scadule.end_time,
-        scadule.date,
+        schedule.start_time,
+        schedule.end_time,
+        schedule.date,
         craftsman.cr_name
-FROM 
-    booking 
-JOIN  
-    user  ON booking.userid = user.id
-JOIN 
-    services ON booking.servceid  = services.id
-JOIN 
-    scadule  ON booking.id = scadule.bookingid
-JOIN
-    craftsman ON booking.craftsmanid = craftsman.userid 
+    FROM 
+        booking 
+    JOIN  
+        user ON booking.userid = user.id
+    JOIN 
+        services ON booking.servceid = services.id
+    JOIN 
+        schedule ON booking.id = schedule.bookingid
+    JOIN
+        craftsman ON booking.craftsmanid = craftsman.userid; 
 `);
 res.status(200).json(transaction);
 

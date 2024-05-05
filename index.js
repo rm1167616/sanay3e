@@ -48,6 +48,7 @@ app.use("/getgallery",require("./routes/gets/getgallery"));
 app.use("/bookinglistfotc",require("./routes/gets/getbokinglistforcraftsman"));
 app.use("/bookinglistforcustomer",require("./routes/gets/getbookinglistforcustomer"));
 app.use("/getuser",require("./routes/gets/getuser"));
+app.use("/getreviewandrate",require("./routes/gets/getreviewandrate"));
 //============ booking function ==========//
 app.use("/booking",require("./routes/booking/book"));
 //========================support============//
