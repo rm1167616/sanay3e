@@ -49,9 +49,8 @@ router.post("/profile/:id", async (req, res) => {
 
 
 // Route to handle file uploads and store paths in database
-router.post("/gallery/:id", async (req, res) => {
+router.post("/gallery/:id", upload.array('img_url', 5), async (req, res) => {
     try {
-        const { imageUrls, publicIds } = req.body;
         const query = util.promisify(connection.query).bind(connection);
         const userId = req.params.id;
 
@@ -61,15 +60,15 @@ router.post("/gallery/:id", async (req, res) => {
             return res.status(404).json({ error: "Not Found", message: "User not found." });
         }
 
-        // Prepare the object to insert into the database
-        const galleryData = {
-            userid: userId,
-            public_id: publicIds,
-            img_url: imageUrls
-        };
-
-        // Insert paths into the database using parameterized query
-        await query("INSERT INTO gallary SET ?", galleryData);
+        // Insert each image into the database
+        for (const file of req.files) {
+            const galleryData = {
+                userid: userId,
+                img_url: file.originalname,
+            };
+            // Insert path into the database using parameterized query
+            await query("INSERT INTO gallary SET ?", galleryData);
+        }
 
         res.status(200).json("Images uploaded successfully.");
     } catch (err) {
@@ -77,6 +76,8 @@ router.post("/gallery/:id", async (req, res) => {
         res.status(500).json({ error: "Internal Server Error", message: err.message });
     }
 });
+
+
 
 router.post("/compp/:id",async(req,res)=>{
     try
