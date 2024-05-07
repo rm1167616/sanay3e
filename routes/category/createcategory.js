@@ -7,10 +7,10 @@ const util = require("util"); // helper
 
 router.post("/",async(req, res) => {
     try {
-        const { name , description , min_time , package ,package2 ,package3 ,package4 , material ,coverimg_url ,coverPUblic_id	} = req.body ;
+        const { name , description , min_time , package ,package2 ,package3 ,package4 , material ,img } = req.body ;
         const query = util.promisify(connection.query).bind(connection);
 
-        const cate = await query ("select * from category where name = ?",name);
+        const cate =  await query (" select * from category where name = ?",name);
         if(cate[0])
         {
             res.status(404).json("sorry ypu cant add the same category more than once time");
@@ -18,7 +18,7 @@ router.post("/",async(req, res) => {
         }
         else
         {
-                    // prepare the object 
+                  //  prepare the object 
         const category = {
             name: name,
             description: description,

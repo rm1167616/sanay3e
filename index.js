@@ -10,6 +10,11 @@ const cors = require("cors");
 app.use(cors());  // allow https requst,respons
 
 
+// create file called upload 
+app.use(express.static("uploads"));
+app.use('/uploads', express.static('uploads'));
+
+
 
 //======== run the app ============//
 app.listen(4000 || process.env.port, () => {
