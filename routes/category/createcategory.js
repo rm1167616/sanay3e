@@ -2,12 +2,13 @@ const router = require("express").Router();
 const { body } = require("express-validator");
 const connection = require("../../db/dbConnection");
 const util = require("util"); // helper 
+const upload = require("../../middleware/uploadimage");
 
 
 
-router.post("/",async(req, res) => {
+router.post("/",upload.single("img"),async(req, res) => {
     try {
-        const { name , description , min_time , package ,package2 ,package3 ,package4 , material ,img } = req.body ;
+        const { name , description , min_time , package ,package2 ,package3 ,package4 , material } = req.body ;
         const query = util.promisify(connection.query).bind(connection);
 
         const cate =  await query (" select * from category where name = ?",name);
@@ -18,11 +19,11 @@ router.post("/",async(req, res) => {
         }
         else
         {
-                  //  prepare the object 
+         //  prepare the object 
         const category = {
             name: name,
             description: description,
-            img: img ,
+            img: req.file.originalname,
             min_time: min_time,
             package: package,
             package2: package2,
