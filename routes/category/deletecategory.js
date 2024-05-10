@@ -3,7 +3,7 @@ const { body } = require("express-validator");
 const connection = require("../../db/dbConnection");
 const util = require("util"); // helper 
 const fs = require("fs");
-const upload = require("../../middleware/uploadimage");
+
 
 
 router.delete("/:id",async(req,res)=>{

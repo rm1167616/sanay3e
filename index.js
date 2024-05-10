@@ -55,6 +55,7 @@ app.use("/bookinglistfotc",require("./routes/gets/getbokinglistforcraftsman"));
 app.use("/bookinglistforcustomer",require("./routes/gets/getbookinglistforcustomer"));
 app.use("/getuser",require("./routes/gets/getuser"));
 app.use("/getreviewandrate",require("./routes/gets/getreviewandrate"));
+app.use("/getnumbers",require("./routes/gets/getnumbers"));
 //============ booking function ==========//
 app.use("/booking",require("./routes/booking/book"));
 //========================support============//
