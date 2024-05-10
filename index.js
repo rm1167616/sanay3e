@@ -33,7 +33,7 @@ app.use("/location",require("./routes/auth/location"));
 //=============== category ===========// 
 app.use("/createcategory",require("./routes/category/createcategory"));
 app.use("/getcategory",require("./routes/category/getallcategory"));
-
+app.use("/updatecategory",require("./routes/category/updatecategory"));
 //============== profile function ========// 
 app.use("/ChangePassword",require("./routes/customer/ChangePassword"));
 app.use("/EditProfile",require("./routes/customer/EditProfile"));

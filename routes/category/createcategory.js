@@ -17,14 +17,14 @@ router.post("/",upload.single("img"),async(req, res) => {
             res.status(404).json("sorry ypu cant add the same category more than once time");
 
         }
-        else
+        else    
         {
          //  prepare the object 
         const category = {
             name: name,
             description: description,
             img: req.file.originalname,
-            min_time: min_time,
+            min_time: min_time, 
             package: package,
             package2: package2,
             package3: package3,
