@@ -13,7 +13,7 @@ router.put("/:id",async(req,res)=>{
         if(bookingobj[0])
         {
         await query ("UPDATE booking SET statues = 3 WHERE id = ?",bookingid);
-        res.status(200).json("THE SERVICES ACCEPTED...");
+        res.status(200).json("THE JOB STARTED...");
         }
         else
         {
