@@ -22,10 +22,6 @@ reviews.craftsmanid = ?`, craftsmanid)
         if (object[0]) {
             res.status(200).json(object);
         }
-        else {
-            res.status(404).json("the review not founded...")
-        }
-
 
     }
     catch (err) {
