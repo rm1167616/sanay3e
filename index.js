@@ -73,3 +73,5 @@ app.use("/transction",require("./routes/gets/transaction"));
 //============== RECOMMENDATION ================//
 app.use("/recommendation",require("./routes/recommendation/reco"));
 app.use("/priceprediction",require("./routes/recommendation/price_prediction"));
+//==============  BOOKING SERVICES =============//
+app.use("/acceptRequest",require("./routes/bookingProgress/acceptRequest"));

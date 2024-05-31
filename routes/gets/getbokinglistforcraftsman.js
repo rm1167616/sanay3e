@@ -36,5 +36,4 @@ WHERE
     }
 })
 
-
 module.exports = router;
