@@ -19,9 +19,8 @@ JOIN
     user ON user.id = reviews.customerid
 WHERE 
 reviews.craftsmanid = ?`, craftsmanid)
-        if (object[0]) {
+        
             res.status(200).json(object);
-        }
 
     }
     catch (err) {
