@@ -27,14 +27,8 @@ JOIN
     scadule  ON booking.id = scadule.bookingid
 WHERE 
     booking.craftsmanid = ?`,craftsmanid);  
-    if(bookinglist[0])
-    {
-        res.status(200).json(bookinglist);
-    }
-    else
-    {
-        res.status(404).json("no booking exist");
-    }
+
+    res.status(200).json(bookinglist);
 
     }
     catch (error) {
