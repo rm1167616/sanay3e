@@ -75,3 +75,6 @@ app.use("/recommendation",require("./routes/recommendation/reco"));
 app.use("/priceprediction",require("./routes/recommendation/price_prediction"));
 //==============  BOOKING SERVICES =============//
 app.use("/acceptRequest",require("./routes/bookingProgress/acceptRequest"));
+app.use("/arrived",require("./routes/bookingProgress/arrived"));
+app.use("/endjob",require("./routes/bookingProgress/endjob"));
+app.use("/startjob",require("./routes/bookingProgress/startjob"));
