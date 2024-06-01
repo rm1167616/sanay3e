@@ -78,3 +78,4 @@ app.use("/acceptRequest",require("./routes/bookingProgress/acceptRequest"));
 app.use("/arrived",require("./routes/bookingProgress/arrived"));
 app.use("/endjob",require("./routes/bookingProgress/endjob"));
 app.use("/startjob",require("./routes/bookingProgress/startjob"));
+app.use("/getjobdetails",require("./routes/bookingProgress/getBookingDetails"));
