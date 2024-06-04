@@ -27,8 +27,8 @@ router.post("/:id",async(req,res)=>{
                   return res.status(404).json("The craftsman is busy during this time");
                 }
               }
-              await query ("insert into scadule set ?",scaduleobj);
-              res.status(200).json(scaduleobj);
+              const scaduleobj2 = await query ("insert into scadule set ?",scaduleobj);
+              res.status(200).json(scaduleobj2);
         }
         else
         {
