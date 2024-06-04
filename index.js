@@ -18,7 +18,7 @@ app.use('/uploads', express.static('uploads'));
 
 //======== run the app ============//
 app.listen(4000 || process.env.port, () => {
-        console.log("SERVER IS RUNNING....${port}");
+        console.log(`SERVER IS RUNNING ON PORT 4000....`);
     });
 
 //============== api ==============//

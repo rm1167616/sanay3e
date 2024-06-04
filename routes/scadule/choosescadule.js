@@ -27,15 +27,19 @@ router.post("/:id",async(req,res)=>{
                   return res.status(404).json("The craftsman is busy during this time");
                 }
               }
-              const scaduleobj2 = await query ("insert into scadule set ?",scaduleobj);
-              const id = scaduleobj2[0].id;
-              res.status(200).json(id);
+              const result = await query ("insert into scadule set ?",scaduleobj);
+              const insertId = result.insertId;
+              const scaduleobj1 = await query ("select * from scadule where id = ?",insertId);
+              res.status(200).json(scaduleobj1);
         }
         else
         {
             //insert the object of scadule in data base 
-            await query ("insert into scadule set ?",scaduleobj);
-            res.status(200).json(scaduleobj);
+            const result =  await query ("insert into scadule set ?",scaduleobj);
+            const insertId = result.insertId;
+            const scaduleobj1 = await query ("select * from scadule where id = ?",insertId);
+            res.status(200).json(scaduleobj1);
+      
 
         }
 
