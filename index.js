@@ -51,8 +51,8 @@ app.use("/createservice",require("./routes/servicess/createservice"));
 app.use("/getcraftsman",require("./routes/gets/getlcraftsmanbycategory"));
 app.use("/getcraftsmanskills",require("./routes/gets/getuserskills"));
 app.use("/getgallery",require("./routes/gets/getgallery"));
-app.use("/bookinglistfotc",require("./routes/gets/getbokinglistforcraftsman"));
-app.use("/bookinglistforcustomer",require("./routes/gets/getbookinglistforcustomer"));
+app.use("/bookinglistfotc",require("./routes/booking/getbokinglistforcraftsman"));
+app.use("/bookinglistforcustomer",require("./routes/booking/getbookinglistforcustomer"));
 app.use("/getuser",require("./routes/gets/getuser"));
 app.use("/getreviewandrate",require("./routes/gets/getreviewandrate"));
 app.use("/getnumbers",require("./routes/gets/getnumbers"));
@@ -63,6 +63,7 @@ app.use("/support",require("./routes/support/Support"));
 app.use("/viewsupport",require("./routes/support/viewallsupport"));
 //============= scadule =======//
 app.use("/choosescadule",require("./routes/scadule/choosescadule"));
+app.use("/getcraftsmanworktime",require("./routes/scadule/getcraftsmanworktime"));
 //============== rate function =========== //
 app.use("/rate",require("./routes/rate/Rate"));
 app.use("/reviwe",require("./routes/review/review"));
