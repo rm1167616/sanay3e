@@ -10,23 +10,23 @@ router.get("/:id", async (req, res) => {
         const query = util.promisify(connection.query).bind(connection);
         const bookinglist = await query(`
         SELECT 
-    user.f_name ,
-    user.l_name,
-    services.name,
-    booking.price,
-    scadule.start_time,
-    scadule.end_time,
-    scadule.date
-FROM 
-    booking 
-JOIN 
-    user  ON booking.userid = user.id
-JOIN 
-    services ON booking.servceid  = services.id
-JOIN 
-    scadule  ON booking.id = scadule.bookingid
-WHERE 
-    booking.userid = ?`,userid);
+        user.f_name,
+        user.l_name,
+        services.name,
+        scadule.start_time,
+        scadule.end_time,
+        scadule.date,
+        booking.price
+    FROM 
+        booking
+    JOIN 
+        user ON booking.userid = user.id
+    JOIN 
+        services ON booking.servceid = services.id
+    JOIN 
+        scadule ON booking.scaduleid = scadule.id
+    WHERE 
+        booking.userid =?`,userid);
  
     res.status(200).json(bookinglist);
 

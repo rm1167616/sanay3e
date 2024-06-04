@@ -1,39 +1,41 @@
 const router = require("express").Router();
-const { body } = require("express-validator");
 const connection = require("../../db/dbConnection");
-const util = require("util"); // helper 
-
+const util = require("util"); // helper
 
 router.get("/:id", async (req, res) => {
-    try {
-        const craftsmanid = req.params.id;
-        const query = util.promisify(connection.query).bind(connection);
-        const bookinglist = await query(`
-        SELECT 
-    user.f_name ,
+    try
+    {
+
+    const query = util.promisify(connection.query).bind(connection);
+
+    const bookinglist = await query(`
+    SELECT 
+    user.f_name,
     user.l_name,
     services.name,
-    booking.price,
     scadule.start_time,
     scadule.end_time,
-    scadule.date
+    scadule.date,
+    booking.price
 FROM 
-    booking 
+    booking
 JOIN 
-    user  ON booking.userid = user.id
+    user ON booking.userid = user.id
 JOIN 
-    services ON booking.servceid  = services.id
+    services ON booking.servceid = services.id
 JOIN 
-    scadule  ON booking.id = scadule.bookingid
+    scadule ON booking.scaduleid = scadule.id
 WHERE 
-    booking.craftsmanid = ?`,craftsmanid);  
+    booking.craftsmanid = ?
+    `, [req.params.id]);
 
     res.status(200).json(bookinglist);
+}
+catch(err)
+{
+    res.status(404).json(err)
+}
 
-    }
-    catch (error) {
-        res.status(404).json(error);
-    }
-})
+});
 
 module.exports = router;
