@@ -8,7 +8,7 @@ router.get("/:id",async(req,res)=>{
     {
         const query = util.promisify(connection.query).bind(connection);
         const id = req.params.id;
-        const craftsmanobj = await query (" select start_time , end_time , date from scadule where craftsmanid = ?",id);
+        const craftsmanobj = await query (" select id, start_time , end_time , date from scadule where craftsmanid = ?",id);
      
                 res.status(200).json(craftsmanobj);
 
