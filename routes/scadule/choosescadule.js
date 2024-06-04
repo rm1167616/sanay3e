@@ -28,7 +28,8 @@ router.post("/:id",async(req,res)=>{
                 }
               }
               const scaduleobj2 = await query ("insert into scadule set ?",scaduleobj);
-              res.status(200).json(scaduleobj2);
+              const id = scaduleobj2[0].id;
+              res.status(200).json(id);
         }
         else
         {
