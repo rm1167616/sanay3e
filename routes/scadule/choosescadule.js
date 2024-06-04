@@ -24,7 +24,7 @@ router.post("/:id",async(req,res)=>{
         {
             for (let i = 0; i < scadule.length; i++) {
                 if (start_time >= scadule[i].start_time && end_time <= scadule[i].end_time && date==scadule[i].date) {
-                  return res.status(404).json("The craftsman is busy during this time");
+                  return res.status(200).json("The craftsman is busy during this time");
                 }
               }
               const result = await query ("insert into scadule set ?",scaduleobj);
