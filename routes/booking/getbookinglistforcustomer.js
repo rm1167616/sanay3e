@@ -10,6 +10,7 @@ router.get("/:id", async (req, res) => {
         const query = util.promisify(connection.query).bind(connection);
         const bookinglist = await query(`
         SELECT 
+        booking.id,
         user.f_name,
         user.l_name,
         services.name,
