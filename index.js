@@ -35,6 +35,7 @@ app.use("/createcategory",require("./routes/category/createcategory"));
 app.use("/getcategory",require("./routes/category/getallcategory"));
 app.use("/updatecategory",require("./routes/category/updatecategory"));
 app.use("/deletecategory",require("./routes/category/deletecategory"));
+app.use("/getcategorywthid",require("./routes/category/getcategorywthid"));
 //============== profile function ========// 
 app.use("/ChangePassword",require("./routes/customer/ChangePassword"));
 app.use("/EditProfile",require("./routes/customer/EditProfile"));
