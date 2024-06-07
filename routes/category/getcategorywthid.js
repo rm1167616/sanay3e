@@ -8,7 +8,8 @@ router.get("/:id",async(req,res)=>{
     try
     {
         const query = util.promisify(connection.query).bind(connection);
-        const category = await query ("select * from category where id ?",req.params.id);
+        const category = await query ("select * from category where id =  ?",[req.params.id]);
+        
         if(category[0])
         {
             res.status(200).json(category);

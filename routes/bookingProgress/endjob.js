@@ -12,6 +12,15 @@ router.put("/:id", async (req, res) => {
 
         if (bookingobj[0]) {
             const price = bookingobj[0].price;
+            // remove budget from customer
+            const userid = bookingobj[0].userid;
+            const userr = await query ("select * from user where id = ?",userid);
+            const wallet=userr[0].wallet;
+            const allwallet = wallet - price;
+            await query("UPDATE user SET wallet = ? WHERE id = ?",[allwallet, userid]);
+            
+
+            
             const craftsmanid = bookingobj[0].craftsmanid;
             const admincomition = price * (10 / 100);
             const budget = price - admincomition;
