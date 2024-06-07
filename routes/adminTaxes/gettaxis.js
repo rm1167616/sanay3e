@@ -13,7 +13,7 @@ router.get("/",async(req,res)=>{
         let adminDues = 0;
         for (let i = 0; i < commitionResults.length; i++) {
             adminDues += commitionResults[i].adminDues;
-            taxes =+ commitionResults[i].taxes
+            taxes += commitionResults[i].taxes
         }
 
         res.status(200).json({
