@@ -86,4 +86,4 @@ app.use("/charts",require("./routes/charts/getChart"));
 //================== WALLET ==================//
 app.use("/getwallet",require("./routes/gets/getwallet"));
 //=================  COMMITION ===============//
-app.use("/commition",require("./routes/joker/gettaxis"));
+app.use("/commition",require("./routes/adminTaxes/gettaxis"));

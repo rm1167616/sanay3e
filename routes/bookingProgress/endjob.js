@@ -12,18 +12,12 @@ router.put("/:id", async (req, res) => {
 
         if (bookingobj[0]) {
             const price = bookingobj[0].price;
-            // remove budget from customer
-            const userid = bookingobj[0].userid;
-            const userr = await query ("select * from user where id = ?",userid);
-            const wallet=userr[0].wallet;
-            const allwallet = wallet - price;
-            await query("UPDATE user SET wallet = ? WHERE id = ?",[allwallet, userid]);
-            
 
-            
+            // craftsman side   & calculate taxes and commition           
             const craftsmanid = bookingobj[0].craftsmanid;
-            const admincomition = price * (10 / 100);
-            const budget = price - admincomition;
+            const adminDues = price * (10 / 100);
+            const taxes = price * (5 / 100);
+            const budget = price - (adminDues + taxes);
             const result = await query(" select * from craftsman where userid  = ?", [craftsmanid]);
             const existbudget = result[0].budget;
             const allbudget = existbudget + budget;
@@ -32,7 +26,8 @@ router.put("/:id", async (req, res) => {
             // insert new budget in admin table 
             const historyobj = {
                 bookingid: bookingid,
-                commition: admincomition
+                adminDues: adminDues,
+                taxes:taxes
             }
             await query(" insert into history set ? ", historyobj);
             await query("UPDATE booking SET statues = 4 WHERE id = ?", bookingid);
