@@ -10,8 +10,9 @@ router.get("/:id",async(req,res)=>{
     {
         const craftsmanid = req.params.id;
         const query = util.promisify(connection.query).bind(connection);
-        const craftsman  = await query (" select budget from craftsman where userid  = ?",craftsmanid);
-        res.status(404).json(craftsman);
+        const craftsman  = await query (" select * from craftsman where userid  = ?",craftsmanid);
+        const budget = craftsman[0].budget
+        res.status(404).json(budget);
         
     }
     catch(err)
