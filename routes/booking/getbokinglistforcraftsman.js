@@ -27,7 +27,7 @@ JOIN
 JOIN 
     scadule ON booking.scaduleid = scadule.id
 WHERE 
-    booking.craftsmanid = ?
+    booking.craftsmanid = ? and booking.statues = '1'
     `, [req.params.id]);
 
     res.status(200).json(bookinglist);

@@ -27,7 +27,7 @@ router.get("/:id", async (req, res) => {
     JOIN 
         scadule ON booking.scaduleid = scadule.id
     WHERE 
-        booking.userid =?`,userid);
+        booking.userid =? and booking.statues = '1'`,userid);
  
     res.status(200).json(bookinglist);
 
