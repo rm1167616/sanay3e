@@ -23,7 +23,7 @@ router.put('/:id', async(req, res) => {
         };
         // update the data base 
         const newuser  =  await query ("UPDATE user SET ? WHERE id = ? ",[userobj,userid]);
-        res.status(200).json(newuser);
+        res.status(200).json("profile created");
      }
      else
      {
