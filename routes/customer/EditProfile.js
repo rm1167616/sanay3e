@@ -3,48 +3,39 @@ const { body } = require("express-validator");
 const connection = require("../../db/dbConnection");
 const util = require("util");
 
-router.put('/:id', (req, res) => {
-    const userId = req.params.id;
-    const { f_name, l_name, username, email, phone, photo , public_id  } = req.body;
+router.put('/:id', async(req, res) => {
+   try 
+   {
+     const { f_name ,  l_name , username , email , phone , photo} = req.body ;
+     const userid = req.params.id;
+     const query = util.promisify(connection.query).bind(connection); 
+     const user = await query (" select * from user where id = ?",userid);
+     if(user[0])
+     {
+         // PREPARE THE OBJECT 
+         const userobj = {
+            f_name: f_name ? f_name : user[0].f_name,
+            l_name:l_name ? l_name : user[0].l_name,
+            username:username ? username : user[0].username,
+            email:email ? email : user[0].email,
+            phone:phone ? phone : user[0].phone,
+            photo:photo ? photo : user[0].photo,
+        };
+        // update the data base 
+        const newuser  =  await query ("UPDATE user SET ? WHERE id = ? ",[userobj,userid]);
+        res.status(200).json(newuser);
+     }
+     else
+     {
+         res.status(200).json("SORRY THE USER NOT FOUND....");
+     }
 
-  
-    const query = `UPDATE user SET 
-      f_name = ?,
-      l_name = ?,
-      username = ?,
-      email = ?,
-      phone = ?,
-      photo = ?,
-      public_id = ?
-      WHERE id = ?`;
+   }
+   catch(err)
+   {
+    res.status(404).json(err)
+   }
 
-    connection.query(query, [f_name, l_name, username, email, phone, photo,public_id, userId], (err, results) => {
-        if (err) {
-            console.error('Error updating user information:', err);
-            res.status(500).send('Error updating user information');
-            return;
-        }
-
-        // updated user data from the database
-        const Query = `SELECT f_name, l_name, username, email, phone, photo ,public_id FROM user WHERE id = ?`;
-
-        connection.query(Query, [userId], (Err, Results) => {
-            if (Err) {
-                console.error('Error fetching updated user data:', Err);
-                res.status(500).send('Error fetching updated user data');
-                return;
-            }
-
-            if (Results.length === 0) {
-                res.status(404).send('User not found');
-                return;
-            }
-
-            const updatedUserData = Results[0];
-            res.json(updatedUserData);
-             // res.status(200).send('User information updated successfully');
-        });
-    });
 });
   
   module.exports = router ;
