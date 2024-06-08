@@ -12,7 +12,7 @@ router.get("/:id",async(req,res)=>{
         const query = util.promisify(connection.query).bind(connection);
         const craftsman  = await query (" select * from craftsman where userid  = ?",craftsmanid);
         const budget = craftsman[0].budget
-        res.status(404).json(budget);
+        res.status(200).json(budget);
         
     }
     catch(err)
