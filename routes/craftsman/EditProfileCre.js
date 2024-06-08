@@ -6,7 +6,7 @@ const upload = require("../../middleware/uploadimage");
 const fs = require('fs');
 
 
-router.put("profile/:id", async (req, res) => {
+router.put("/profile/:id", async (req, res) => {
     const { aboutme, skills } = req.body;
     const userId = req.params.id;
 
