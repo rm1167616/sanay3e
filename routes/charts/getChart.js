@@ -15,8 +15,14 @@ router.get("/:id", async (req, res) => {
             WHERE scadule.craftsmanid = ?
               AND DATE(scadule.date) BETWEEN DATE(DATE_SUB(NOW(), INTERVAL WEEKDAY(NOW()) DAY)) AND DATE(DATE_SUB(NOW(), INTERVAL WEEKDAY(NOW()) - 6 DAY))
         `, [craftsmanid]);
+
+        let sum = 0 ;
+        for( let i=0 ; i<chartsobj.length ; i++)
+            {
+                sum += chartsobj[i].price
+            }
         
-        res.status(200).json(chartsobj);
+        res.status(200).json(sum);
 
     }
     catch (err) {
